@@ -1,8 +1,10 @@
+from unicodedata import numeric
 from PyQt5 import QtWidgets as qtw
 from PyQt5 import QtCore as qtc
 from PyQt5 import QtGui as qtg
 import sys
 # from loginUI import Ui_Form
+import serial.tools.list_ports as sp
 from PyQt5 import uic
 
 # from main import Ui_Form
@@ -17,6 +19,16 @@ class MainWindow(baseclass, Ui_Form):
         # self.ui = uic.loadUi('loginUI.ui',self)
         self.setupUi(self)
 
+        number_of_ports = []
+        ports = sp.comports()
+        for port in ports:
+            try:
+                number_of_ports.append(port.device)
+            except:
+                print("No port")
+                
+        self.Port.addItems(number_of_ports)
+        self.Port.setCurrentIndex(0)
         self.pushButton.clicked.connect(self.authenticate)
         self.lineEdit.textChanged.connect(self.set_button_text)
         self.show()
@@ -31,9 +43,12 @@ class MainWindow(baseclass, Ui_Form):
         username = self.lineEdit.text()
         password = self.lineEdit_2.text()
         if username == "user" and password == "pass":
-            qtw.QMessageBox.information(self,'Success!', "You are logged in.")
+            if self.Port.currentText() == '':
+                qtw.QMessageBox.critical(self,'Login Failed!', f"Connect with some port.")    
+            else:
+                qtw.QMessageBox.information(self,'Success!', f"You are logged in.\nYou are connected with {self.Port.currentText()} port.")
         else:
-            qtw.QMessageBox.critical(self, 'Login failed!', "Please try again.")
+            qtw.QMessageBox.critical(self, 'Login failed!', "Check username and password.")
 
 if __name__ == "__main__":
     app = qtw.QApplication(sys.argv)
