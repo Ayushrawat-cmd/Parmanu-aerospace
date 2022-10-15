@@ -1,4 +1,3 @@
-from unicodedata import numeric
 from PyQt5 import QtWidgets as qtw
 from PyQt5 import QtCore as qtc
 from PyQt5 import QtGui as qtg
@@ -9,9 +8,20 @@ from PyQt5 import uic
 
 # from main import Ui_Form
 
-Ui_Form, baseclass = uic.loadUiType('loginUI.ui',resource_suffix='.qrc')
+LoginUi_Form, baseclass1 = uic.loadUiType('loginUI.ui',resource_suffix='.qrc')
+HomeUi_Form, baseclass2 = uic.loadUiType('home-page.ui',resource_suffix='.qrc')
 
-class MainWindow(baseclass, Ui_Form):
+class HomeWindow(baseclass2, HomeUi_Form):
+    def __init__(self, *args, **kwargs) :
+        super().__init__(*args,**kwargs)
+        self.setupUi(self)
+
+        self.show()
+
+class MainWindow(baseclass1, LoginUi_Form):
+
+    authenticated = qtc.pyqtSignal()
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -31,6 +41,7 @@ class MainWindow(baseclass, Ui_Form):
         self.Port.setCurrentIndex(0)
         self.pushButton.clicked.connect(self.authenticate)
         self.lineEdit.textChanged.connect(self.set_button_text)
+        self.authenticated.connect(self.logged_in)
         self.show()
     
     def set_button_text(self,text):
@@ -47,9 +58,13 @@ class MainWindow(baseclass, Ui_Form):
                 qtw.QMessageBox.critical(self,'Login Failed!', f"Connect with some port.")    
             else:
                 qtw.QMessageBox.information(self,'Success!', f"You are logged in.\nYou are connected with {self.Port.currentText()} port.")
+                self.authenticated.emit()
         else:
             qtw.QMessageBox.critical(self, 'Login failed!', "Check username and password.")
 
+    def logged_in(self):
+        self.home = HomeWindow()
+        self.close()
 if __name__ == "__main__":
     app = qtw.QApplication(sys.argv)
     
