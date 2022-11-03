@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>560</width>
-    <height>460</height>
+    <width>1346</width>
+    <height>462</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,15 +18,12 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>560</width>
+     <width>1341</width>
      <height>460</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">QWidget{
-	background-color:#38E54D;
-}
-</string>
+    <string notr="true"/>
    </property>
    <widget class="QFrame" name="frame">
     <property name="geometry">
@@ -178,8 +175,6 @@ background-repeat:none;
    </widget>
   </widget>
  </widget>
- <resources>
-  <!-- <include location="./icons.qrc"/> -->
- </resources>
+ <resources/>
  <connections/>
 </ui>

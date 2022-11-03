@@ -2,20 +2,59 @@ from PyQt5 import QtWidgets as qtw
 from PyQt5 import QtCore as qtc
 from PyQt5 import QtGui as qtg
 import sys
-# from loginUI import Ui_Form
+import matplotlib
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import serial.tools.list_ports as sp
 from PyQt5 import uic
 
-# from main import Ui_Form
-
 LoginUi_Form, baseclass1 = uic.loadUiType('loginUI.ui',resource_suffix='.qrc')
 HomeUi_Form, baseclass2 = uic.loadUiType('home-page.ui',resource_suffix='.qrc')
+
+class Canvas1(FigureCanvas):
+    def __init__(self,parent):
+        fig, self.ax = plt.subplots(figsize=(3,5), dpi=80) #dpi is according to resolutions for monitor and figsize is fugure size 
+        super().__init__(fig)
+        self.setParent(parent)
+        self.ax.plot([1,2,3,4,5],[10,11,12,13,14])
+        self.ax.grid()
+
+class Canvas2(FigureCanvas):
+    def __init__(self,parent):
+        fig, self.ax = plt.subplots(figsize=(3,5), dpi=80) #dpi is according to resolutions for monitor and figsize is fugure size 
+        super().__init__(fig)
+        self.setParent(parent)
+        self.ax.plot([1,2,3,4,5],[10,11,12,13,14])
+        self.ax.grid()
+
+class Canvas3(FigureCanvas):
+    def __init__(self,parent):
+        fig, self.ax = plt.subplots(figsize=(3,5), dpi=80) #dpi is according to resolutions for monitor and figsize is fugure size 
+        super().__init__(fig)
+        self.setParent(parent)
+        self.ax.plot([1,2,3,4,5],[10,11,12,13,14])
+        self.ax.grid()
+
+class Canvas4(FigureCanvas):
+    def __init__(self,parent):
+        fig, self.ax = plt.subplots(figsize=(3,5), dpi=80) #dpi is according to resolutions for monitor and figsize is fugure size 
+        super().__init__(fig)
+        self.setParent(parent)
+        self.ax.plot([1,2,3,4,5],[10,11,12,13,14])
+        self.ax.grid()
 
 class HomeWindow(baseclass2, HomeUi_Form):
     def __init__(self, *args, **kwargs) :
         super().__init__(*args,**kwargs)
         self.setupUi(self)
-
+        self.chart1 = Canvas1(self)
+        self.chart1.move(80,40)
+        self.chart2 = Canvas2(self)
+        self.chart2.move(380,40)
+        self.chart3 = Canvas3(self)
+        self.chart3.move(680,40)
+        self.chart4 = Canvas4(self)
+        self.chart4.move(980,40)
         self.show()
 
 class MainWindow(baseclass1, LoginUi_Form):
@@ -27,8 +66,9 @@ class MainWindow(baseclass1, LoginUi_Form):
 
         # self.ui = Ui_Form()
         # self.ui = uic.loadUi('loginUI.ui',self)
+        
         self.setupUi(self)
-
+        
         number_of_ports = []
         ports = sp.comports()
         for port in ports:
