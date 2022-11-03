@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>743</width>
-    <height>653</height>
+    <width>1346</width>
+    <height>462</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,8 +18,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>740</width>
-     <height>650</height>
+     <width>1341</width>
+     <height>460</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -29,7 +29,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>145</y>
+      <y>50</y>
       <width>50</width>
       <height>360</height>
      </rect>
@@ -38,7 +38,6 @@
      <string notr="true">QFrame{
 border-radius:20px;
 background-color:black;
-
 }
 QPushButton{
 padding:50px 20px;
