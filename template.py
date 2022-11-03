@@ -13,7 +13,7 @@ HomeUi_Form, baseclass2 = uic.loadUiType('home-page.ui',resource_suffix='.qrc')
 
 class Canvas1(FigureCanvas):
     def __init__(self,parent):
-        fig, self.ax = plt.subplots(figsize=(3,5), dpi=80) #dpi is according to resolutions for monitor and figsize is fugure size 
+        fig, self.ax = plt.subplots(figsize=(5,5), dpi=60) #dpi is according to resolutions for monitor and figsize is fugure size 
         super().__init__(fig)
         self.setParent(parent)
         self.ax.plot([1,2,3,4,5],[10,11,12,13,14])
@@ -21,7 +21,7 @@ class Canvas1(FigureCanvas):
 
 class Canvas2(FigureCanvas):
     def __init__(self,parent):
-        fig, self.ax = plt.subplots(figsize=(3,5), dpi=80) #dpi is according to resolutions for monitor and figsize is fugure size 
+        fig, self.ax = plt.subplots(figsize=(5,5), dpi=60) #dpi is according to resolutions for monitor and figsize is fugure size 
         super().__init__(fig)
         self.setParent(parent)
         self.ax.plot([1,2,3,4,5],[10,11,12,13,14])
@@ -29,7 +29,7 @@ class Canvas2(FigureCanvas):
 
 class Canvas3(FigureCanvas):
     def __init__(self,parent):
-        fig, self.ax = plt.subplots(figsize=(3,5), dpi=80) #dpi is according to resolutions for monitor and figsize is fugure size 
+        fig, self.ax = plt.subplots(figsize=(5,5), dpi=60) #dpi is according to resolutions for monitor and figsize is fugure size 
         super().__init__(fig)
         self.setParent(parent)
         self.ax.plot([1,2,3,4,5],[10,11,12,13,14])
@@ -37,7 +37,7 @@ class Canvas3(FigureCanvas):
 
 class Canvas4(FigureCanvas):
     def __init__(self,parent):
-        fig, self.ax = plt.subplots(figsize=(3,5), dpi=80) #dpi is according to resolutions for monitor and figsize is fugure size 
+        fig, self.ax = plt.subplots(figsize=(5,5), dpi=60) #dpi is according to resolutions for monitor and figsize is fugure size 
         super().__init__(fig)
         self.setParent(parent)
         self.ax.plot([1,2,3,4,5],[10,11,12,13,14])
@@ -48,13 +48,13 @@ class HomeWindow(baseclass2, HomeUi_Form):
         super().__init__(*args,**kwargs)
         self.setupUi(self)
         self.chart1 = Canvas1(self)
-        self.chart1.move(80,40)
+        self.chart1.move(80,20)
         self.chart2 = Canvas2(self)
-        self.chart2.move(380,40)
+        self.chart2.move(80,340)
         self.chart3 = Canvas3(self)
-        self.chart3.move(680,40)
+        self.chart3.move(400,20)
         self.chart4 = Canvas4(self)
-        self.chart4.move(980,40)
+        self.chart4.move(400,340)
         self.show()
 
 class MainWindow(baseclass1, LoginUi_Form):
@@ -108,5 +108,5 @@ class MainWindow(baseclass1, LoginUi_Form):
 if __name__ == "__main__":
     app = qtw.QApplication(sys.argv)
     
-    w = MainWindow()
+    w = HomeWindow()
     sys.exit(app.exec_())
