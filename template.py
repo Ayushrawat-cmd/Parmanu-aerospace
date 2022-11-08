@@ -3,8 +3,10 @@ from PyQt5 import QtCore as qtc
 from PyQt5 import QtGui as qtg
 import sys
 import matplotlib
+import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+import pandas as pd
 import serial.tools.list_ports as sp
 from PyQt5 import uic
 
@@ -12,50 +14,58 @@ LoginUi_Form, baseclass1 = uic.loadUiType('loginUI.ui',resource_suffix='.qrc')
 HomeUi_Form, baseclass2 = uic.loadUiType('home-page.ui',resource_suffix='.qrc')
 
 class Canvas1(FigureCanvas):
-    def __init__(self,parent):
+    def __init__(self,parent,y_cor):
         fig, self.ax = plt.subplots(figsize=(5,5), dpi=60) #dpi is according to resolutions for monitor and figsize is fugure size 
         super().__init__(fig)
         self.setParent(parent)
-        self.ax.plot([1,2,3,4,5],[10,11,12,13,14])
+        self.ax.plot(list(range(1,101)),y_cor)
         self.ax.grid()
 
 class Canvas2(FigureCanvas):
-    def __init__(self,parent):
+    def __init__(self,parent,y_cor):
         fig, self.ax = plt.subplots(figsize=(5,5), dpi=60) #dpi is according to resolutions for monitor and figsize is fugure size 
         super().__init__(fig)
         self.setParent(parent)
-        self.ax.plot([1,2,3,4,5],[10,11,12,13,14])
+        self.ax.plot(list(range(1,101)),y_cor)
         self.ax.grid()
 
 class Canvas3(FigureCanvas):
-    def __init__(self,parent):
+    def __init__(self,parent,y_cor):
         fig, self.ax = plt.subplots(figsize=(5,5), dpi=60) #dpi is according to resolutions for monitor and figsize is fugure size 
         super().__init__(fig)
         self.setParent(parent)
-        self.ax.plot([1,2,3,4,5],[10,11,12,13,14])
+        self.ax.plot(list(range(1,101)),y_cor)
         self.ax.grid()
 
 class Canvas4(FigureCanvas):
-    def __init__(self,parent):
+    def __init__(self,parent,y_cor):
         fig, self.ax = plt.subplots(figsize=(5,5), dpi=60) #dpi is according to resolutions for monitor and figsize is fugure size 
         super().__init__(fig)
         self.setParent(parent)
-        self.ax.plot([1,2,3,4,5],[10,11,12,13,14])
+        self.ax.plot(list(range(1,101)),y_cor)
         self.ax.grid()
 
 class HomeWindow(baseclass2, HomeUi_Form):
     def __init__(self, *args, **kwargs) :
         super().__init__(*args,**kwargs)
         self.setupUi(self)
-        self.chart1 = Canvas1(self)
+        self.read_csv_file()
+        self.chart1 = Canvas1(self,self.chart1_data)
         self.chart1.move(80,20)
-        self.chart2 = Canvas2(self)
+        self.chart2 = Canvas2(self,self.chart2_data)
         self.chart2.move(80,340)
-        self.chart3 = Canvas3(self)
+        self.chart3 = Canvas3(self,self.chart3_data)
         self.chart3.move(400,20)
-        self.chart4 = Canvas4(self)
+        self.chart4 = Canvas4(self,self.chart4_data)
         self.chart4.move(400,340)
         self.show()
+
+    def read_csv_file(self):
+        data = pd.read_csv('Sample-Spreadsheet-100-rows.csv')
+        self.chart1_data = np.array(data['a'])
+        self.chart2_data = np.array(data['b'])
+        self.chart3_data = np.array(data['c'])
+        self.chart4_data = np.array(data['d'])
 
 class MainWindow(baseclass1, LoginUi_Form):
 
