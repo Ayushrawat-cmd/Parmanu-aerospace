@@ -2,7 +2,6 @@ from PyQt5 import QtWidgets as qtw
 from PyQt5 import QtCore as qtc
 from PyQt5 import QtGui as qtg
 import sys
-import matplotlib
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -35,6 +34,7 @@ class Canvas3(FigureCanvas):
         super().__init__(fig)
         self.setParent(parent)
         self.ax.plot(list(range(1,101)),y_cor)
+        # self.ax.
         self.ax.grid()
 
 class Canvas4(FigureCanvas):
@@ -51,13 +51,17 @@ class HomeWindow(baseclass2, HomeUi_Form):
         self.setupUi(self)
         self.read_csv_file()
         self.chart1 = Canvas1(self,self.chart1_data)
-        self.chart1.move(80,20)
+        self.layoutvertical = qtw.QVBoxLayout(self.graph1)
+        self.layoutvertical.addWidget(self.chart1)
         self.chart2 = Canvas2(self,self.chart2_data)
-        self.chart2.move(80,340)
+        self.layoutvertical = qtw.QVBoxLayout(self.graph2)
+        self.layoutvertical.addWidget(self.chart2)
         self.chart3 = Canvas3(self,self.chart3_data)
-        self.chart3.move(400,20)
+        self.layoutvertical = qtw.QVBoxLayout(self.graph3)
+        self.layoutvertical.addWidget(self.chart3)
         self.chart4 = Canvas4(self,self.chart4_data)
-        self.chart4.move(400,340)
+        self.layoutvertical = qtw.QVBoxLayout(self.graph4)
+        self.layoutvertical.addWidget(self.chart4)
         self.show()
 
     def read_csv_file(self):
@@ -73,9 +77,6 @@ class MainWindow(baseclass1, LoginUi_Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        # self.ui = Ui_Form()
-        # self.ui = uic.loadUi('loginUI.ui',self)
         
         self.setupUi(self)
         
