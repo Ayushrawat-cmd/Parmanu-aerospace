@@ -17,7 +17,6 @@ class Canvas1(FigureCanvas):
         fig, self.ax = plt.subplots(figsize=(5,5), dpi=60) #dpi is according to resolutions for monitor and figsize is fugure size 
         super().__init__(fig)
         self.setParent(parent)
-        self.ax.plot(list(range(1,101)),y_cor)
         self.ax.grid()
 
 class Canvas2(FigureCanvas):
@@ -25,7 +24,6 @@ class Canvas2(FigureCanvas):
         fig, self.ax = plt.subplots(figsize=(5,5), dpi=60) #dpi is according to resolutions for monitor and figsize is fugure size 
         super().__init__(fig)
         self.setParent(parent)
-        self.ax.plot(list(range(1,101)),y_cor)
         self.ax.grid()
 
 class Canvas3(FigureCanvas):
@@ -33,7 +31,6 @@ class Canvas3(FigureCanvas):
         fig, self.ax = plt.subplots(figsize=(5,5), dpi=60) #dpi is according to resolutions for monitor and figsize is fugure size 
         super().__init__(fig)
         self.setParent(parent)
-        self.ax.plot(list(range(1,101)),y_cor)
         # self.ax.
         self.ax.grid()
 
@@ -42,7 +39,6 @@ class Canvas4(FigureCanvas):
         fig, self.ax = plt.subplots(figsize=(5,5), dpi=60) #dpi is according to resolutions for monitor and figsize is fugure size 
         super().__init__(fig)
         self.setParent(parent)
-        self.ax.plot(list(range(1,101)),y_cor)
         self.ax.grid()
 
 class HomeWindow(baseclass2, HomeUi_Form):
@@ -50,19 +46,42 @@ class HomeWindow(baseclass2, HomeUi_Form):
         super().__init__(*args,**kwargs)
         self.setupUi(self)
         self.read_csv_file()
+
         self.chart1 = Canvas1(self,self.chart1_data)
         self.layoutvertical = qtw.QVBoxLayout(self.graph1)
         self.layoutvertical.addWidget(self.chart1)
+        
         self.chart2 = Canvas2(self,self.chart2_data)
         self.layoutvertical = qtw.QVBoxLayout(self.graph2)
         self.layoutvertical.addWidget(self.chart2)
+        # self.graph2_start.clicked.connect(self.graph2_plot)
+
         self.chart3 = Canvas3(self,self.chart3_data)
         self.layoutvertical = qtw.QVBoxLayout(self.graph3)
         self.layoutvertical.addWidget(self.chart3)
+        # self.graph3_start.clicked.connect(self.graph3_plot)
+
         self.chart4 = Canvas4(self,self.chart4_data)
         self.layoutvertical = qtw.QVBoxLayout(self.graph4)
         self.layoutvertical.addWidget(self.chart4)
+        # self.graph4_start.clicked.connect(self.graph4_plot)
+        
+        self.graph_start.clicked.connect(self.graph_plot)
         self.show()
+    
+    def graph_plot(self):
+        self.chart1.ax.plot(list(range(1,101)),self.chart1_data)
+        # self.chart1.ax.remove() # clear the canvas
+        self.chart2.ax.plot(list(range(1,101)),self.chart2_data)
+        # self.chart1.ax.remove() # clear the canvas
+        self.chart3.ax.plot(list(range(1,101)),self.chart3_data)
+        # self.chart1.ax.remove() # clear the canvas
+        self.chart4.ax.plot(list(range(1,101)),self.chart4_data)
+        # self.chart1.ax.remove() # clear the canvas
+        self.chart1.draw()  # update the canvas
+        self.chart2.draw()  # update the canvas
+        self.chart3.draw()  # update the canvas
+        self.chart4.draw()  # update the canvas
 
     def read_csv_file(self):
         data = pd.read_csv('Sample-Spreadsheet-100-rows.csv')
